@@ -8,11 +8,11 @@ const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validar-campos');
 const { validarJWT } = require('../middlewares/validar-jwt');
 
-const { getMedicos, crearMedico, actualizarMedico, borrarMedico } = require('../controllers/Medicos');
+const { getMedicos, crearMedico, actualizarMedico, borrarMedico, getMedicosById } = require('../controllers/Medicos');
 const router = Router();
 
 // Rutas
-router.get('/', getMedicos );
+router.get('/', validarJWT, getMedicos );
 
 router.post('/', 
     [
@@ -35,5 +35,9 @@ router.put('/:id',
 router.delete('/:id',
     validarJWT,
     borrarMedico );
+
+router.get('/:id',
+    validarJWT,
+    getMedicosById );
 
 module.exports = router;
